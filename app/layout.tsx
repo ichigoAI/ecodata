@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { createClient } from '@/lib/supabase/server'
-import { AuthProvider } from '@/context/AuthContext'
+import { AuthProvider, mapSupabaseUserToProfile } from '@/context/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,9 +23,10 @@ export default async function RootLayout({
     <html lang="fr">
       <body className={`${inter.className} bg-white text-gray-900`}>
         {/* AuthProvider avec utilisateur authentifié */}
-        <AuthProvider initialUser={user}>
-          {children}
-        </AuthProvider>
+          <AuthProvider initialUser={user ? mapSupabaseUserToProfile(user) : null}>
+            {children}
+          </AuthProvider>
+
       </body>
     </html>
   )

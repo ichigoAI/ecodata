@@ -28,6 +28,20 @@ const AuthContext = createContext<AuthContextProps>({
   login: async () => {},
   logout: async () => {},
 })
+// utilitaire pour transformer Supabase User en UserProfile
+// utilitaire pour transformer Supabase User en UserProfile
+export const mapSupabaseUserToProfile = (user: any): UserProfile => ({
+  id: user.id,
+  email: user.email || "",
+  type: "standard",
+  full_name: user.user_metadata?.full_name || "",
+  phone: user.user_metadata?.phone || "",
+  birth_date: user.user_metadata?.birth_date || "",
+  profession: user.user_metadata?.profession || "",
+  plan_id: null,
+  created_at: user.created_at || "",
+})
+
 
 export function AuthProvider({
   children,
