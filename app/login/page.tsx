@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/context/AuthContext' // <-- on importe le contexte
+import { useAuth } from '@/context/AuthContext'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -10,8 +10,15 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const { login, user } = useAuth() // <-- hook pour accéder à login et user
+  const { login, user } = useAuth()
   const router = useRouter()
+
+  // Redirection si déjà connecté
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user, router])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -19,8 +26,8 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      await login(email, password) // <-- utilisation de la fonction login du contexte
-      router.push('/')              // redirection après login
+      await login(email, password)
+      router.push('/')
       router.refresh()
     } catch (err: any) {
       setError(err.message)
@@ -29,11 +36,8 @@ export default function LoginPage() {
     }
   }
 
-  // Si déjà connecté, redirige vers la page principale
-  if (user) {
-    router.push('/')
-    return null
-  }
+  // On peut afficher un simple loader si user est déjà défini
+  if (user) return <div>Redirection...</div>
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">

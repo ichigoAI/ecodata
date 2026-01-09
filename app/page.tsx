@@ -6,7 +6,7 @@ import UsersList from '@/components/Client'
 import UserMap from '@/components/UserMap'
 import UserSearches from '@/components/UserSearch'
 import ServiceClick from '@/components/ServiceClicks'
-import { useAuth,UserProfile } from '@/context/AuthContext'
+import { useAuth } from '@/context/AuthContext'
 
 export default function Home() {
   const [search, setSearch] = useState('')
