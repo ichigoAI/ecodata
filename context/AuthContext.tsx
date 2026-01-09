@@ -10,7 +10,7 @@ export type UserProfile = {
   phone?: string
   birth_date?: string
   profession?: string
-  type: "standard" | "premium"
+  type?: "standard" | "premium"
   plan_id?: string | null
   created_at?: string
 }
