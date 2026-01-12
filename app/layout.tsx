@@ -9,7 +9,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr">
       <body className={`${inter.className} bg-white text-gray-900`}>
-        {/* AuthProvider gère l'utilisateur côté client */}
         <AuthProvider>
           {children}
         </AuthProvider>

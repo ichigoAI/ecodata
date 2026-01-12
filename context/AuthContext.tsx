@@ -40,7 +40,6 @@ export function AuthProvider({
   const [jwt, setJwt] = useState<string | null>(null)
   const supabase = createClient()
 
-  // Récupérer le profil complet depuis la table 'profiles'
   const fetchUserProfile = async (userId: string): Promise<UserProfile | null> => {
     const { data, error } = await supabase
       .from('profiles')
